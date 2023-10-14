@@ -1,0 +1,45 @@
+﻿@using EntityLayer.Concrete
+@model UserTable
+@{
+    ViewData["Title"] = "Register";
+    Layout = "";
+}
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Sayfası</title>
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+
+<body>
+    <style>
+        .text-danger {
+            color: red!important;
+        }
+    </style>
+    <div class="wrapper">
+        <h2>Kayıt Ol</h2>
+        <form method="post" action="/Account/Register">
+            @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+            @Html.ValidationMessage("Exist", new { @class = "text-danger" })
+            <div class="input-box">
+                <input asp-for="Name" type="text" placeholder="Adınızı girin..." required>
+            </div>
+            <div class="input-box">
+                <input asp-for="UserName" type="text" placeholder="Kullanıcı adınızı girin..." required>
+            </div>
+            <div class="input-box">
+                <input asp-for="Password" type="password" placeholder="Parola" required>
+            </div>
+            @Html.ValidationMessage("PassError", new { @class = "text-danger" })
+            <div class="input-box button">
+                <input type="Submit" value="Kayıt Ol">
+            </div>
+            <div class="text">
+                <h3>Zaten üye misin? <a href="/Account/Login">Giriş Yap</a></h3>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

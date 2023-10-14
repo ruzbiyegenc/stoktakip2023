@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "ProductList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (this.User.IsInRole("Admin"))
+{
+    <a class="btn btn-success" href="/Product/Create/">+ Yeni Ürün</a>
+}
+    <table id="productTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ürün Adı</th>
+                <th>Stok Miktarı</th>
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <th>Düzenle</th>
+                    <th>Sil</th>
+                }
+                else
+                {
+                    <th>Zimmet Talebi</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+            <tr>
+                <td>@product.ProductID</td>
+                <td>@product.Name</td>
+                <td>@product.UnitsInStock</td>
+                @if (this.User.IsInRole("Admin"))
+                {
+                    <td><a class="btn btn-info" href="/Product/Edit/@product.ProductID">Düzenle</a></td>
+                    <td><a class="btn btn-danger" href="/Product/Delete/@product.ProductID">Sil</a></td>
+                }
+                else
+                {
+                    <td><a class="btn btn-warning" href="/Assign/CreateAssign/@product.ProductID">Zimmet Talebi+</a></td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
